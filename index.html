@@ -64,7 +64,7 @@ button {
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 
-// YES button → confetti
+// YES button → confetti animation
 yesBtn.addEventListener("click", () => {
   for (let i = 0; i < 120; i++) {
     const conf = document.createElement("div");
@@ -90,7 +90,7 @@ yesBtn.addEventListener("click", () => {
   alert("YAY!!! 💘");
 });
 
-// NO button → runs away
+// NO button → dodges the cursor
 noBtn.addEventListener("mouseover", () => {
   const x = Math.random() * (window.innerWidth - 100);
   const y = Math.random() * (window.innerHeight - 50);
