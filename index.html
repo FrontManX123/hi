@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;">
   <title>Will You Be My Valentine?</title>
   <style>
     body {
@@ -104,6 +104,12 @@
       0%   { transform: translateY(100vh) rotate(0deg); }
       100% { transform: translateY(-150px) rotate(720deg); }
     }
+
+    .confetti {
+      position: absolute;
+      pointer-events: none;
+      user-select: none;
+    }
   </style>
 </head>
 <body>
@@ -135,44 +141,47 @@
     }
     setInterval(createHeart, 400);
 
-    // Button logic
     const yesBtn = document.getElementById("yesBtn");
     const noBtn = document.getElementById("noBtn");
     const message = document.getElementById("message");
 
+    // No button runs away on hover
+    noBtn.addEventListener("mouseover", () => {
+      const x = (Math.random() * 200 - 100);
+      const y = (Math.random() * 200 - 100);
+      noBtn.style.transform = translate(${x}px, ${y}px);
+      setTimeout(() => {
+        noBtn.style.transform = "translate(0,0)";
+      }, 800);
+    });
+
+    // Yes button shows message + confetti
     yesBtn.addEventListener("click", () => {
       message.classList.remove("hidden");
       message.style.opacity = "1";
       noBtn.style.display = "none";
-
-      // Confetti
-      for(let i = 0; i < 80; i++) {
+// Emoji confetti with CSS transition
+      for (let i = 0; i < 120; i++) {
         const conf = document.createElement("div");
-        conf.style.position = "absolute";
-        conf.style.width = "10px";
-        conf.style.height = "10px";
-        conf.style.background = ["#ff0000","#ff69b4","#ffd700","#00ff00","#1e90ff"][Math.floor(Math.random()*5)];
-        conf.style.borderRadius = "50%";
+        conf.classList.add("confetti");
+        conf.innerHTML = ['🎉','❤️','💖','✨','🥰','💥','🌸'][Math.floor(Math.random()*7)];
+        conf.style.fontSize = (Math.random() * 30 + 12) + "px";
         conf.style.left = Math.random() * 100 + "vw";
-        conf.style.top = "-20px";
-        conf.style.pointerEvents = "none";
+        conf.style.top = "-60px";
+        conf.style.transition = all ${Math.random()*2 + 2}s ease-out;
+        conf.style.opacity = "1";
         document.body.appendChild(conf);
 
-conf.animate([
-          { transform: "translateY(0)", opacity: 1 },
-          { transform: translateY(${window.innerHeight + 100}px) rotate(${Math.random()*720}deg), opacity: 0 }
-        ], {
-          duration: Math.random() * 3000 + 2000,
-          easing: "cubic-bezier(.37,0,.63,1)"
-        }).onfinish = () => conf.remove();
-      }
-    });
+        // Trigger animation after tiny delay
+        setTimeout(() => {
+          const angle = Math.random() * 720;
+          const distance = window.innerHeight + 300;
+          conf.style.transform = translateY(${distance}px) rotate(${angle}deg);
+          conf.style.opacity = "0";
+        }, 50 + i * 8); // stagger start times
 
-    noBtn.addEventListener("mouseover", () => {
-      noBtn.style.transform = translate(${Math.random()*200 - 100}px, ${Math.random()*200 - 100}px);
-      setTimeout(() => {
-        noBtn.style.transform = "translate(0,0)";
-      }, 800);
+        setTimeout(() => conf.remove(), 6000);
+      }
     });
   </script>
 
