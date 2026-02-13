@@ -5,28 +5,154 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Will You Be My Valentine?</title>
   <style>
-    body { margin:0; height:100vh; background:#ffebee; font-family:Arial,sans-serif; display:flex; justify-content:center; align-items:center; flex-direction:column; color:#c2185b; }
-    h1 { font-size:3rem; margin-bottom:20px; }
-    .buttons { display:flex; gap:40px; }
-    button { font-size:1.5rem; padding:15px 40px; border:none; border-radius:30px; cursor:pointer; }
-    #yes { background:#e91e63; color:white; }
-    #no { background:#9e9e9e; color:white; }
-    #message { font-size:2rem; margin-top:30px; color:#4caf50; display:none; }
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ffccd5, #ffb6c1, #ff9aa2);
+      color: #c2185b;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 3.8rem;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 12px rgba(255, 255, 255, 0.7);
+      z-index: 5;
+    }
+
+    .subtitle {
+      font-size: 1.8rem;
+      margin-top: -10px;
+      margin-bottom: 50px;
+      opacity: 0.9;
+      z-index: 5;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 80px;
+      z-index: 10;
+    }
+
+    button {
+      font-size: 1.8rem;
+      padding: 18px 70px;
+      border: none;
+      border-radius: 60px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      transition: all 0.3s ease;
+    }
+
+    #yesBtn {
+      background: #e91e63;
+      color: white;
+    }
+
+    #yesBtn:hover {
+      background: #c2185b;
+      transform: scale(1.08);
+    }
+
+    #noBtn {
+      background: #9e9e9e;
+      color: white;
+    }
+
+    #noBtn:hover {
+      background: #757575;
+    }
+
+    #message, #noMessage {
+      font-size: 2.2rem;
+      margin-top: 60px;
+      font-weight: bold;
+      text-shadow: 1px 1px 8px rgba(255,255,255,0.8);
+      z-index: 5;
+    }
+
+    #message {
+      color: #4caf50;
+      display: none;
+    }
+
+    #noMessage {
+      color: #ff5722;
+      display: none;
+    }
+
+    /* Falling petals */
+    .petal {
+      position: absolute;
+      font-size: 1.8rem;
+      pointer-events: none;
+      animation: fall linear infinite;
+      opacity: 0.85;
+    }
+
+    @keyframes fall {
+      0%   { transform: translateY(-100vh) rotate(0deg); }
+      100% { transform: translateY(120vh) rotate(720deg); }
+    }
   </style>
 </head>
 <body>
-  <h1>Will you be my Valentine? 💕</h1>
+
+  <h1>Will you be my Valentine?</h1>
+  <div class="subtitle">💕</div>
+
   <div class="buttons">
-    <button id="yes">Yes</button>
-    <button id="no">No</button>
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
   </div>
-  <div id="message">YAY!!! I love you! ❤️ (I knew you would say yes!)</div>
+
+  <div id="message">YAY!!! I love you! ❤️<br>(I knew you would say yes!)</div>
+  <div id="noMessage">You got no other choice 😈<br>Go back and click Yes!</div>
 
   <script>
-    document.getElementById("yes").onclick = function() {
+    // Yes → success
+    document.getElementById("yesBtn").onclick = function() {
       document.getElementById("message").style.display = "block";
-      document.getElementById("no").style.display = "none";
+      document.getElementById("noBtn").style.display = "none";
+      document.getElementById("noMessage").style.display = "none";
     };
+
+    // No → funny rejection
+    document.getElementById("noBtn").onclick = function() {
+      const noMsg = document.getElementById("noMessage");
+      noMsg.style.display = "block";
+
+      // Funny jump away for 1.5 seconds
+      this.style.transform = "translateY(-150px) scale(0.7)";
+      setTimeout(() => {
+        this.style.transform = "translateY(0) scale(1)";
+        // Optional: hide message after a while
+        setTimeout(() => noMsg.style.display = "none", 4000);
+      }, 1500);
+    };
+
+    // Falling rose petals
+    function createPetal() {
+      const petal = document.createElement("div");
+      petal.className = "petal";
+      petal.innerHTML = ["🌹", "🌸", "💗", "🥀", "🌺"][Math.floor(Math.random() * 5)];
+      petal.style.left = Math.random() * 100 + "vw";
+      petal.style.animationDuration = (Math.random() * 10 + 12) + "s";
+      petal.style.fontSize = (Math.random() * 1.5 + 1.2) + "rem";
+      petal.style.opacity = Math.random() * 0.5 + 0.5;
+      document.body.appendChild(petal);
+      setTimeout(() => petal.remove(), 15000);
+    }
+
+    setInterval(createPetal, 600);
   </script>
+
 </body>
 </html>
