@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Hey Beautiful 💕</title>
+  <title>Hey Mrs ArthiArun 💕</title>
   <style>
     body {
       margin: 0;
@@ -95,7 +95,7 @@
 
   <!-- Quiz Page -->
   <div id="quizPage" class="page">
-    <h1 id="welcomeName">Hey Mrs ArthiArun 💕</h1>
+    <h1 id="welcomeName">Hey beautiful 💕</h1>
     <p>Before I ask you something very special… answer this correctly 😘</p>
 
     <p><strong>What’s the first movie we watched together?</strong></p>
@@ -124,8 +124,8 @@
   </div>
 
   <script>
-    // Apology → quiz
-    document.getElementById("goButton").addEventListener("click", function goToQuiz() {
+    // Apology → quiz (using addEventListener for reliability)
+    document.getElementById("goButton").addEventListener("click", function() {
       const apology = document.getElementById("apologyPage");
       apology.style.opacity = "0";
       setTimeout(() => {
@@ -138,8 +138,9 @@
 
     // Her name
     let herName = localStorage.getItem("herName");
-    if (!herName) {
-herName = prompt("What's your beautiful name, love? 💕") || "beautiful";
+
+if (!herName) {
+      herName = prompt("What's your beautiful name, love? 💕") || "beautiful";
       localStorage.setItem("herName", herName);
     }
     document.getElementById("welcomeName").innerHTML = Hey ${herName} 💕;
