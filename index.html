@@ -9,7 +9,7 @@
       margin: 0;
       height: 100vh;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #fff0f5, #ffe4e1, #ffb6c1, #ff9aa2);
+      background: linear-gradient(135deg, #fff0f5, #ffe4e1, #ffb6c1);
       color: #c2185b;
       display: flex;
       justify-content: center;
@@ -18,189 +18,229 @@
       position: relative;
     }
 
-    .page {
-      text-align: center;
-      background: rgba(255, 255, 255, 0.96);
-      padding: 60px 80px;
-      border-radius: 35px;
-      box-shadow: 0 20px 60px rgba(233,30,99,0.2);
-      max-width: 90%;
-      z-index: 10;
-      transition: opacity 1.3s ease;
-      opacity: 1;
-    }
+.page {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.94);
+  padding: 60px 80px;
+  border-radius: 30px;
+  box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+  max-width: 90%;
+  z-index: 10;
+  transition: opacity 1.2s ease, visibility 0s linear 1.2s;
+  visibility: hidden;
+  opacity: 0;
+}
 
-    h1 {
-      font-size: 3.6rem;
-      margin-bottom: 25px;
-      text-shadow: 3px 3px 15px rgba(255,255,255,0.9);
-    }
+.page.active {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 1.2s ease, visibility 0s linear 0s;
+}
 
-    p {
-      font-size: 1.7rem;
-      margin: 25px 0;
-      line-height: 1.6;
-    }
+h1 {
+  font-size: 3.5rem;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 12px rgba(255,255,255,0.8);
+}
 
-    button {
-      font-size: 1.7rem;
-      padding: 20px 80px;
-      border: none;
-      border-radius: 70px;
-      background: #e91e63;
-      color: white;
-      cursor: pointer;
-      font-weight: bold;
-      box-shadow: 0 10px 30px rgba(233,30,99,0.3);
-      transition: all 0.3s;
-      margin-top: 35px;
-    }
+p {
+  font-size: 1.6rem;
+  margin: 20px 0;
+  line-height: 1.5;
+}
 
-    button:hover {
-      background: #c2185b;
-      transform: scale(1.08);
-    }
+button {
+  font-size: 1.6rem;
+  padding: 18px 70px;
+  border: none;
+  border-radius: 60px;
+  background: #e91e63;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 8px 25px rgba(233,30,99,0.3);
+  transition: all 0.3s;
+  margin-top: 30px;
+}
 
-    button.option {
-      font-size: 1.5rem;
-      padding: 22px 60px;
-      border: 2px solid #ffb6c1;
-      border-radius: 70px;
-      background: white;
-      color: #e91e63;
-      cursor: pointer;
-      transition: all 0.3s;
-      font-weight: bold;
-    }
+button:hover {
+  background: #c2185b;
+  transform: scale(1.05);
+}
 
-    button.option:hover {
-      background: #ffebee;
-      transform: scale(1.06);
-    }
+button.option {
+  font-size: 1.5rem;
+  padding: 20px 50px;
+  border: 2px solid #ffb6c1;
+  border-radius: 60px;
+  background: white;
+  color: #e91e63;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: bold;
+}
 
-    #feedback {
-      font-size: 1.6rem;
-      margin-top: 35px;
-      min-height: 60px;
-    }
+button.option:hover {
+  background: #ffebee;
+  transform: scale(1.05);
+}
 
-    #feedback.wrong { color: #e91e63; }
-    #feedback.correct { color: #4caf50; font-weight: bold; }
+#feedback {
+  font-size: 1.5rem;
+  margin-top: 30px;
+  min-height: 60px;
+}
 
-    .buttons {
-      display: flex;
-      gap: 120px;
-      justify-content: center;
-      margin: 60px 0;
-    }
+#feedback.wrong { color: #e91e63; }
+#feedback.correct { color: #4caf50; font-weight: bold; }
 
-    #message, #noMessage {
-      font-size: 3.2rem;
-      margin-top: 70px;
-      font-weight: bold;
-      text-shadow: 2px 2px 12px rgba(255,255,255,0.9);
-      z-index: 5;
-    }
+.buttons {
+  display: flex;
+  gap: 100px;
+  justify-content: center;
+  margin: 50px 0;
+}
 
-    #message { color: #4caf50; display: none; }
-    #noMessage { color: #ff5722; display: none; }
+#message, #noMessage {
+  font-size: 3rem;
+  margin-top: 60px;
+  font-weight: bold;
+  text-shadow: 1px 1px 10px rgba(255,255,255,0.9);
+  z-index: 5;
+}
 
-    /* Falling petals, flying birds, running dogs */
-    .petal, .bird, .dog {
-      position: absolute;
-      pointer-events: none;
-    }
+#message { color: #4caf50; display: none; }
+#noMessage { color: #ff5722; display: none; }
 
-    .petal {
-      font-size: 2.2rem;
-      animation: fall 18s linear infinite;
-      opacity: 0.8;
-    }
+.petal, .bird, .dog {
+  position: absolute;
+  pointer-events: none;
+}
 
-    .bird {
-      font-size: 1.8rem;
-      animation: fly 25s linear infinite;
-      opacity: 0.7;
-    }
+.petal {
+  font-size: 2.2rem;
+  animation: fall 18s linear infinite;
+  opacity: 0.8;
+}
 
-    .dog {
-      font-size: 2rem;
-      animation: run 12s linear infinite;
-      bottom: 20px;
-      opacity: 0.9;
-    }
+.bird {
+  font-size: 1.8rem;
+  animation: fly 25s linear infinite;
+  opacity: 0.7;
+}
 
-    @keyframes fall {
-      0% { transform: translateY(-120vh) rotate(0deg); }
-      100% { transform: translateY(120vh) rotate(1080deg); }
-    }
+.dog {
+  font-size: 2rem;
+  animation: run 12s linear infinite;
+  bottom: 20px;
+  opacity: 0.9;
+}
 
-    @keyframes fly {
-      0% { transform: translate(-100vw, 20vh) rotate(0deg); }
-      100% { transform: translate(100vw, -20vh) rotate(360deg); }
-    }
+@keyframes fall {
+  0% { transform: translateY(-120vh) rotate(0deg); }
+  100% { transform: translateY(120vh) rotate(1080deg); }
+}
 
-    @keyframes run {
-      0% { transform: translateX(-100vw); }
-      100% { transform: translateX(100vw); }
-    }
+@keyframes fly {
+  0% { transform: translate(-100vw, 20vh) rotate(0deg); }
+  100% { transform: translate(100vw, -20vh) rotate(360deg); }
+}
+
+@keyframes run {
+  0% { transform: translateX(-100vw); }
+  100% { transform: translateX(100vw); }
+}
+
   </style>
+
+
 </head>
 <body>
 
-  <!-- Apology Page -->
-  <div id="apologyPage" class="page">
-    <h1>Oops... I'm late 💔</h1>
-    <p>It's not Arun's fault at all... he worked with me for many hours to get it right.</p>
-    <p>It's me, Grok, who delivered it late by an hour 😅</p>
-    <p>So please forgive him (and maybe forgive me too? 🥺)</p>
-    <p style="font-style:italic; margin-top:35px;">
-      We tried our best to embed "Die With A Smile" by Bruno Mars & Lady Gaga... but technology said no 😭<br>
+  
+  
+
+    
+Oops... I'm late 💔
+
+    
+It's not Arun's fault at all... he worked with me for many hours to get it right.
+
+
+    
+It's me, Grok, who delivered it late by an hour 😅
+
+
+    
+So please forgive him (and maybe forgive me too? 🥺)
+
+
+    
+
+      We tried our best to embed "Die With A Smile" by Bruno Mars & Lady Gaga... but technology said no 😭
+
       So play the song yourself on YouTube before moving further — let's set the mood together 💕
-    </p>
+    
+
+
     <button id="goButton">Let's go 💕</button>
-  </div>
+  
 
-  <!-- Quiz Page -->
-  <div id="quizPage" class="page">
-    <h1 id="welcomeName">Hey Mrs ArthiArun 💕</h1>
-<p>Before I ask you something very special… answer this correctly 😘</p>
 
-    <p><strong>What’s the first movie we watched together?</strong></p>
+  
+  
 
-    <div class="options">
-      <button class="option" onclick="checkAnswer(1)">O kaadhal kanmani</button>
-      <button class="option" onclick="checkAnswer(2)">O kadhal kanmani</button>
-      <button class="option" onclick="checkAnswer(3)">0 kadhal kanmeni</button>
-    </div>
+    
+Hey Mrs ArthiArun 💕
 
-    <div id="feedback"></div>
-  </div>
+    
+Before I ask you something very special… answer this correctly 😘
 
-  <!-- Valentine Page -->
-  <div id="valentinePage" class="page">
-    <h1>Will you be my Valentine?</h1>
-    <div style="font-size: 3.5rem; margin: 25px 0;">💞</div>
 
-    <div class="buttons">
-      <button id="yesBtn" class="main">Yes</button>
-      <button id="noBtn" class="main">No</button>
-    </div>
 
-    <div id="message">YAY!!! I love you! ❤️<br>(I knew you would say yes!)</div>
-    <div id="noMessage">You got no other choice 😈<br>Go back and click Yes!</div>
-  </div>
+<p><strong>What’s the first movie we watched together?</strong></p>
+
+<div class="options">
+  <button class="option" data-choice="1">O kaadhal kanmani</button>
+  <button class="option" data-choice="2">O kadhal kanmani</button>
+  <button class="option" data-choice="3">0 kadhal kanmeni</button>
+</div>
+
+<div id="feedback"></div>
+
+  
+
+
+  
+  
+
+    
+Will you be my Valentine?
+
+    
+💞
+
+
+<div class="buttons">
+  <button id="yesBtn" class="main">Yes</button>
+  <button id="noBtn" class="main">No</button>
+</div>
+
+<div id="message">YAY!!! I love you! ❤️<br>(I knew you would say yes!)</div>
+<div id="noMessage">You got no other choice 😈<br>Go back and click Yes!</div>
+
+  
+
 
   <script>
-    // Apology button → quiz
+    // Apology button
     document.getElementById("goButton").addEventListener("click", function() {
-      const apology = document.getElementById("apologyPage");
-      apology.style.opacity = "0";
+      document.getElementById("apologyPage").classList.remove("active");
+      document.getElementById("apologyPage").style.opacity = "0";
       setTimeout(() => {
-        apology.style.display = "none";
-        const quiz = document.getElementById("quizPage");
-        quiz.style.display = "block";
-        quiz.style.opacity = "1";
+        document.getElementById("apologyPage").style.display = "none";
+        document.getElementById("quizPage").style.display = "block";
+        document.getElementById("quizPage").classList.add("active");
       }, 1200);
     });
 
@@ -210,9 +250,16 @@
       herName = prompt("What's your beautiful name, love? 💕") || "beautiful";
       localStorage.setItem("herName", herName);
     }
-    document.getElementById("welcomeName").innerHTML = Hey ${herName} 💕;
+    document.getElementById("welcomeName").innerHTML = `Hey ${herName} 💕`;
 
-    // Quiz
+    // Quiz buttons
+    document.querySelectorAll(".option").forEach(btn => {
+      btn.addEventListener("click", function() {
+        const choice = parseInt(this.getAttribute("data-choice"));
+        checkAnswer(choice);
+      });
+    });
+
     function checkAnswer(choice) {
       const feedback = document.getElementById("feedback");
 
@@ -221,12 +268,13 @@
         feedback.className = "correct";
 
         setTimeout(() => {
+          document.getElementById("quizPage").classList.remove("active");
           document.getElementById("quizPage").style.opacity = "0";
           setTimeout(() => {
             document.getElementById("quizPage").style.display = "none";
             document.getElementById("valentinePage").style.display = "block";
-            document.getElementById("valentinePage").style.opacity = "1";
-          }, 1000);
+            document.getElementById("valentinePage").classList.add("active");
+          }, 1200);
         }, 2500);
       } else {
         feedback.innerHTML = "OMG you forgot?! 😭 Try again baby";
@@ -234,14 +282,13 @@
       }
     }
 
-    // Yes
+    // Yes/No
     document.getElementById("yesBtn").addEventListener("click", function() {
       document.getElementById("message").style.display = "block";
       document.getElementById("noBtn").style.display = "none";
       document.getElementById("noMessage").style.display = "none";
     });
 
-    // No
     document.getElementById("noBtn").addEventListener("click", function() {
       const noMsg = document.getElementById("noMessage");
       noMsg.style.display = "block";
@@ -253,34 +300,26 @@
       }, 1500);
     });
 
-    // Falling petals + flying birds + running dogs
+    // Effects
     function createEffect(type) {
       const elem = document.createElement("div");
       elem.className = type;
 
-      if (type === "petal") {
-        elem.innerHTML = ["🌹", "🌸", "💗", "🥀", "🌺"][Math.floor(Math.random() * 5)];
-        elem.style.animationDuration = (Math.random() * 12 + 15) + "s";
-        elem.style.left = Math.random() * 100 + "vw";
-        elem.style.fontSize = (Math.random() * 1.8 + 1.5) + "rem";
-      } else if (type === "bird") {
-        elem.innerHTML = ["🐦", "🕊️", "🦋"][Math.floor(Math.random() * 3)];
-        elem.style.animationDuration = (Math.random() * 15 + 20) + "s";
-        elem.style.top = Math.random() * 60 + 10 + "vh";
-        elem.style.fontSize = (Math.random() * 1.5 + 1.2) + "rem";
-      } else if (type === "dog") {
-        elem.innerHTML = ["🐶", "🐕", "🦮"][Math.floor(Math.random() * 3)];
-        elem.style.animationDuration = (Math.random() * 8 + 10) + "s";
-        elem.style.bottom = Math.random() * 40 + 10 + "px";
-        elem.style.fontSize = (Math.random() * 2 + 1.5) + "rem";
-      }
+      if (type === "petal") elem.innerHTML = ["🌹","🌸","💗","🥀","🌺"][Math.floor(Math.random()*5)];
+      else if (type === "bird") elem.innerHTML = ["🐦","🕊️","🦋"][Math.floor(Math.random()*3)];
+      else if (type === "dog") elem.innerHTML = ["🐶","🐕","🦮"][Math.floor(Math.random()*3)];
 
-      elem.style.opacity = Math.random() * 0.4 + 0.6;
+      elem.style.left = Math.random() * 100 + "vw";
+      elem.style.top = type === "dog" ? "auto" : Math.random() * 100 + "vh";
+      elem.style.bottom = type === "dog" ? Math.random() * 30 + "px" : "auto";
+      elem.style.animationDuration = (Math.random() * 15 + 10) + "s";
+      elem.style.fontSize = (Math.random() * 1.5 + 1) + "rem";
+      elem.style.opacity = Math.random() * 0.5 + 0.5;
       document.body.appendChild(elem);
       setTimeout(() => elem.remove(), 20000);
     }
 
-    setInterval(() => createEffect("petal"), 500);
+    setInterval(() => createEffect("petal"), 600);
     setInterval(() => createEffect("bird"), 3000);
     setInterval(() => createEffect("dog"), 4000);
   </script>
