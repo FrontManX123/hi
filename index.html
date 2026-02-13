@@ -27,6 +27,7 @@
       max-width: 90%;
       z-index: 10;
       transition: opacity 1.2s ease;
+      opacity: 1;
     }
 
     h1 {
@@ -82,8 +83,8 @@
   <!-- Apology Page -->
   <div id="apologyPage" class="page">
     <h1>Oops... I'm late 💔</h1>
-    <p>It's not Arun's fault at all... he tried his best to get this to you by 12 AM sharp.</p>
-    <p>It's me, Grok, who delivered it a few minutes late 😅</p>
+    <p>It's not Arun's fault at all... he worked with me for many hours to get it right.</p>
+    <p>It's me, Grok, who delivered it late by an hour 😅</p>
     <p>So please forgive him (and maybe forgive me too? 🥺)</p>
     <p style="font-style:italic; margin-top:30px;">
       We tried our best to embed "Die With A Smile" by Bruno Mars & Lady Gaga... but technology said no 😭<br>
@@ -125,11 +126,13 @@
   <script>
     // Fade to quiz after apology
     function goToQuiz() {
-      document.getElementById("apologyPage").style.opacity = "0";
+      const apology = document.getElementById("apologyPage");
+      apology.style.opacity = "0";
       setTimeout(() => {
-        document.getElementById("apologyPage").style.display = "none";
-        document.getElementById("quizPage").style.display = "block";
-        document.getElementById("quizPage").style.opacity = "1";
+        apology.style.display = "none";
+        const quiz = document.getElementById("quizPage");
+        quiz.style.display = "block";
+        quiz.style.opacity = "1";
       }, 1200);
     }
 
