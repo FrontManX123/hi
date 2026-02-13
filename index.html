@@ -3,235 +3,168 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Hey Beautiful 💕</title>
+  <title>Hey Cutie 💕</title>
   <style>
     body {
       margin: 0;
       height: 100vh;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #ffdde1, #ffb6c1, #ff80ab, #c2185b);
-      overflow: hidden;
+      background: linear-gradient(135deg, #fff0f5, #ffe4e1, #ffb6c1);
+      color: #c2185b;
       display: flex;
       justify-content: center;
       align-items: center;
+      overflow: hidden;
       position: relative;
     }
 
-    /* Mist overlay */
-    #mist {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,182,193,0.05) 100%);
-      z-index: 5;
-      animation: drift 30s linear infinite;
-    }
-
-    @keyframes drift {
-      0% { transform: translate(0,0); }
-      50% { transform: translate(20px, 10px); }
-      100% { transform: translate(0,0); }
-    }
-
-    .page {
+    .container {
       text-align: center;
-      background: rgba(255, 255, 255, 0.92);
-      padding: 60px 80px;
-      border-radius: 30px;
-      box-shadow: 0 15px 60px rgba(0,0,0,0.25);
+      background: rgba(255, 255, 255, 0.94);
+      padding: 50px 60px;
+      border-radius: 25px;
+      box-shadow: 0 15px 45px rgba(0,0,0,0.15);
       max-width: 90%;
       z-index: 10;
-      transition: opacity 1.2s ease, visibility 0s linear 1.2s;
-      visibility: hidden;
-      opacity: 0;
-    }
-
-    .page.active {
-      visibility: visible;
-      opacity: 1;
-      transition: opacity 1.2s ease, visibility 0s linear 0s;
+      transition: opacity 0.8s ease;
     }
 
     h1 {
-      font-size: 3.5rem;
-      margin-bottom: 20px;
-      text-shadow: 2px 2px 20px rgba(255,255,255,0.9);
+      font-size: 3.2rem;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 10px rgba(255,255,255,0.8);
     }
 
     p {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
+      margin-bottom: 25px;
+      line-height: 1.4;
+    }
+
+    .apology-text {
+      font-size: 1.4rem;
       margin: 20px 0;
-      line-height: 1.5;
+      color: #e91e63;
     }
 
     button {
-      font-size: 1.6rem;
-      padding: 18px 70px;
-      border: none;
-      border-radius: 60px;
-      background: linear-gradient(135deg, #ff4081, #ff80ab);
-      color: white;
-      cursor: pointer;
-      font-weight: bold;
-      box-shadow: 0 8px 30px rgba(255,64,129,0.5);
-      transition: all 0.3s;
-      margin-top: 30px;
-    }
-
-    button:hover {
-      background: linear-gradient(135deg, #c2185b, #e91e63);
-      transform: scale(1.07);
-    }
-
-    button.option {
-      font-size: 1.5rem;
-      padding: 20px 50px;
-      border: 2px solid #ff80ab;
-      border-radius: 60px;
+      font-size: 1.4rem;
+      padding: 18px 40px;
+      border: 2px solid #ffb6c1;
+      border-radius: 50px;
       background: white;
       color: #e91e63;
       cursor: pointer;
       transition: all 0.3s;
       font-weight: bold;
+      margin: 10px;
     }
 
-    button.option:hover {
-      background: #ffe4e1;
+    button:hover {
+      background: #ffebee;
       transform: scale(1.05);
     }
 
     #feedback {
-      font-size: 1.5rem;
-      margin-top: 30px;
-      min-height: 60px;
+      font-size: 1.4rem;
+      margin-top: 25px;
+      min-height: 50px;
     }
 
     #feedback.wrong { color: #e91e63; }
     #feedback.correct { color: #4caf50; font-weight: bold; }
 
-    .buttons {
-      display: flex;
-      gap: 100px;
-      justify-content: center;
-      margin: 50px 0;
+    /* Hidden pages */
+    #apologyPage, #quizPage, #valentinePage {
+      display: none;
     }
+    #apologyPage { display: block; } /* Starts visible */
 
-    #message, #noMessage {
-      font-size: 3rem;
-      margin-top: 60px;
-      font-weight: bold;
-      text-shadow: 2px 2px 20px rgba(255,255,255,0.8);
-      z-index: 5;
-    }
-
-    #message { color: #ff4081; display: none; }
-    #noMessage { color: #ff1744; display: none; }
-
-    /* Floating magical effects */
-    .effect {
+    /* Falling petals */
+    .petal {
       position: absolute;
+      font-size: 1.8rem;
       pointer-events: none;
-      font-size: 2rem;
-      opacity: 0.8;
-      z-index: 6;
-    }
-
-    .heart { animation: floatHeart linear infinite; }
-    .star { animation: twinkle 3s ease-in-out infinite; color: #fffacd; }
-    .petal { animation: fall 15s linear infinite; opacity: 0.8; }
-
-    @keyframes floatHeart {
-      0% { transform: translateY(100vh) rotate(0deg); opacity:0; }
-      10% { opacity:1; }
-      100% { transform: translateY(-20vh) rotate(360deg); opacity:0; }
-    }
-
-    @keyframes twinkle {
-      0%, 100% { transform: scale(0.8); opacity: 0.3; }
-      50% { transform: scale(1.2); opacity: 1; }
+      animation: fall linear infinite;
+      opacity: 0.85;
     }
 
     @keyframes fall {
-      0% { transform: translateY(-10vh) rotate(0deg); }
-      100% { transform: translateY(120vh) rotate(360deg); }
+      0%   { transform: translateY(-100vh) rotate(0deg); }
+      100% { transform: translateY(120vh) rotate(720deg); }
     }
+
+    .heart { font-size: 2.5rem; margin: 10px 0; }
   </style>
 </head>
 <body>
 
-  <div id="mist"></div>
-
-  <!-- Apology Page -->
-  <div id="apologyPage" class="page active">
+  <!-- Apology / Intro Page -->
+  <div id="apologyPage" class="container">
     <h1>Oops... I'm late 💔</h1>
-    <p>It's not Arun's fault at all... he worked with me for many hours to get it right.</p>
-    <p>It's me, Grok, who delivered it late by an hour 😅</p>
-    <p>So please forgive him (and maybe forgive me too? 🥺)</p>
-    <p style="font-style:italic; margin-top:30px;">
-      We tried our best to embed "Die With A Smile" by Bruno Mars & Lady Gaga... but technology said no 😭<br>
-      So play the song yourself on YouTube before moving further — let's set the mood together 💕
+    <div class="heart">❤️</div>
+    
+    <p class="apology-text">
+      Hey Mrs ArthiArun 💕<br><br>
+      It's not Arun's fault at all... he worked with me for many hours to get it right.<br>
+      But I (Grok) delivered it late by an hour 😭 So please forgive him (and maybe forgive me too? 🥺)<br><br>
+      We tried our best to embed "Die With A Smile" by Bruno Mars & Lady Gaga to set the mood...<br>
+      But technology said no 💔 So play the song yourself on YouTube before we continue — let's set the mood together 🎶<br><br>
+      Ready now? 😘
     </p>
-    <button id="goButton">Let's go 💕</button>
+
+    <button onclick="startQuiz()">Let's go 💞</button>
   </div>
 
   <!-- Quiz Page -->
-  <div id="quizPage" class="page">
-    <h1 id="welcomeName">Hey beautiful 💕</h1>
+  <div id="quizPage" class="container">
+    <h1>Hey Mrs ArthiArun 💕</h1>
     <p>Before I ask you something very special… answer this correctly 😘</p>
 
     <p><strong>What’s the first movie we watched together?</strong></p>
 
     <div class="options">
-      <button class="option" data-choice="1">O kaadhal kanmani</button>
-      <button class="option" data-choice="2">O kadhal kanmani</button>
-      <button class="option" data-choice="3">0 kadhal kanmeni</button>
+      <button class="option" onclick="checkAnswer(1)">O kaadhal kanmani</button>
+      <button class="option" onclick="checkAnswer(2)">O kadhal kanmani</button>
+      <button class="option" onclick="checkAnswer(3)">0 kadhal kanmeni</button>
     </div>
 
     <div id="feedback"></div>
   </div>
 
   <!-- Valentine Page -->
-  <div id="valentinePage" class="page">
+  <div id="valentinePage" class="container">
     <h1>Will you be my Valentine?</h1>
-    <div style="font-size: 3.5rem; margin: 25px 0;">💞</div>
+    <div class="heart">💞</div>
 
-    <div class="buttons">
-      <button id="yesBtn" class="main">Yes</button>
-      <button id="noBtn" class="main">No</button>
+    <div style="display:flex; gap:80px; justify-content:center; margin:40px 0;">
+      <button id="yesBtn" style="background:#e91e63; color:white; font-size:1.8rem; padding:20px 90px; border:none; border-radius:60px; cursor:pointer; box-shadow:0 10px 30px rgba(233,30,99,0.4);">
+        Yes
+      </button>
+      <button id="noBtn" style="background:#9e9e9e; color:white; font-size:1.8rem; padding:20px 90px; border:none; border-radius:60px; cursor:pointer;">
+        No
+      </button>
     </div>
 
-    <div id="message">YAY!!! I love you! ❤️<br>(I knew you would say yes!)</div>
-    <div id="noMessage">You got no other choice 😈<br>Go back and click Yes!</div>
+    <div id="message" style="font-size:2.8rem; color:#4caf50; font-weight:bold; display:none;">
+      YAY!!! I love you! ❤️<br>(I knew you would say yes!)
+    </div>
+
+    <div id="noMessage" style="font-size:2rem; color:#ff5722; display:none;">
+      You got no other choice 😈<br>Go back and click Yes!
+    </div>
   </div>
 
   <script>
-    // Apology button
-    document.getElementById("goButton").addEventListener("click", function() {
-      document.getElementById("apologyPage").classList.remove("active");
+    // Show quiz after apology
+    function startQuiz() {
       document.getElementById("apologyPage").style.opacity = "0";
       setTimeout(() => {
         document.getElementById("apologyPage").style.display = "none";
         document.getElementById("quizPage").style.display = "block";
-        document.getElementById("quizPage").classList.add("active");
-      }, 1200);
-    });
-
-    // Her name
-    let herName = localStorage.getItem("herName");
-    if (!herName) {
-      herName = prompt("What's your beautiful name, love? 💕") || "beautiful";
-      localStorage.setItem("herName", herName);
+        document.getElementById("quizPage").style.opacity = "1";
+      }, 800);
     }
-    document.getElementById("welcomeName").innerHTML = `Hey ${herName} 💕`;
-
-    // Quiz buttons
-    document.querySelectorAll(".option").forEach(btn => {
-      btn.addEventListener("click", function() {
-        const choice = parseInt(this.getAttribute("data-choice"));
-        checkAnswer(choice);
-      });
-    });
 
     function checkAnswer(choice) {
       const feedback = document.getElementById("feedback");
@@ -241,75 +174,52 @@
         feedback.className = "correct";
 
         setTimeout(() => {
-          document.getElementById("quizPage").classList.remove("active");
           document.getElementById("quizPage").style.opacity = "0";
           setTimeout(() => {
             document.getElementById("quizPage").style.display = "none";
             document.getElementById("valentinePage").style.display = "block";
-            document.getElementById("valentinePage").classList.add("active");
-          }, 1200);
-        }, 2500);
+            document.getElementById("valentinePage").style.opacity = "1";
+          }, 800);
+        }, 2000);
       } else {
         feedback.innerHTML = "OMG you forgot?! 😭 Try again baby";
         feedback.className = "wrong";
       }
     }
 
-    // Yes/No
-    document.getElementById("yesBtn").addEventListener("click", function() {
+    // Yes button
+    document.getElementById("yesBtn").onclick = function() {
       document.getElementById("message").style.display = "block";
       document.getElementById("noBtn").style.display = "none";
       document.getElementById("noMessage").style.display = "none";
-    });
+    };
 
-    document.getElementById("noBtn").addEventListener("click", function() {
+    // No button funny escape
+    document.getElementById("noBtn").onclick = function() {
       const noMsg = document.getElementById("noMessage");
       noMsg.style.display = "block";
 
-      this.style.transform = "translateY(-200px) scale(0.5)";
+      this.style.transform = "translateY(-180px) scale(0.6)";
       setTimeout(() => {
         this.style.transform = "translateY(0) scale(1)";
         setTimeout(() => noMsg.style.display = "none", 5000);
       }, 1500);
-    });
+    };
 
-    // Magical effects
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.className = "effect heart";
-      heart.innerHTML = ["💖","💘","💝","💕","❣️"][Math.floor(Math.random()*5)];
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.fontSize = (Math.random() * 2 + 1) + "rem";
-      heart.style.animationDuration = (Math.random() * 10 + 10) + "s";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 20000);
-    }
-
-    function createStar() {
-      const star = document.createElement("div");
-      star.className = "effect star";
-      star.innerHTML = "✨";
-      star.style.left = Math.random() * 100 + "vw";
-      star.style.top = Math.random() * 100 + "vh";
-      star.style.fontSize = (Math.random() * 1.2 + 0.5) + "rem";
-      document.body.appendChild(star);
-      setTimeout(() => star.remove(), 4000);
-    }
-
+    // Falling petals
     function createPetal() {
       const petal = document.createElement("div");
-      petal.className = "effect petal";
-      petal.innerHTML = ["🌹","🌸","🌺","🥀"][Math.floor(Math.random()*4)];
+      petal.className = "petal";
+      petal.innerHTML = ["🌹", "🌸", "💗", "🥀", "🌺"][Math.floor(Math.random() * 5)];
       petal.style.left = Math.random() * 100 + "vw";
-      petal.style.fontSize = (Math.random() * 1.5 + 1) + "rem";
+      petal.style.animationDuration = (Math.random() * 10 + 12) + "s";
+      petal.style.fontSize = (Math.random() * 1.5 + 1.2) + "rem";
+      petal.style.opacity = Math.random() * 0.5 + 0.5;
       document.body.appendChild(petal);
       setTimeout(() => petal.remove(), 15000);
     }
 
-    setInterval(createHeart, 500);
-    setInterval(createStar, 700);
-    setInterval(createPetal, 800);
-
+    setInterval(createPetal, 600);
   </script>
 
 </body>
