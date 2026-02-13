@@ -5,142 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Will You Be My Valentine?</title>
   <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #333;
-    }
-
-    .container {
-      text-align: center;
-      background: rgba(255, 255, 255, 0.92);
-      padding: 40px 60px;
-      border-radius: 20px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-      max-width: 90%;
-      position: relative;
-      z-index: 10;
-    }
-
-    h1 {
-      font-size: 3.2rem;
-      color: #e74c3c;
-      margin: 0 0 30px;
-      text-shadow: 2px 2px 10px rgba(231, 76, 60, 0.3);
-    }
-
-    .hearts {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-    }
-
-    .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 60px;
-      margin-top: 40px;
-      position: relative;
-    }
-
-    button {
-      font-size: 1.6rem;
-      padding: 18px 60px;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    }
-
-    #yesBtn {
-      background: #e74c3c;
-      color: white;
-    }
-
-    #yesBtn:hover {
-      background: #c0392b;
-      transform: scale(1.1);
-    }
-
-    #noBtn {
-      background: #95a5a6;
-      color: white;
-      position: relative;
-    }
-
-    #noBtn:hover {
-      background: #7f8c8d;
-    }
-
-    .message {
-      font-size: 1.5rem;
-      margin-top: 40px;
-      color: #27ae60;
-      font-weight: bold;
-      opacity: 0;
-      transition: opacity 1s;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    /* Floating hearts background */
-    .heart {
-      position: absolute;
-      font-size: 1.5rem;
-      color: #e74c3c;
-      pointer-events: none;
-      animation: float 8s linear infinite;
-      opacity: 0.7;
-    }
-
-    @keyframes float {
-      0%   { transform: translateY(100vh) rotate(0deg); }
-      100% { transform: translateY(-150px) rotate(720deg); }
-    }
-
-    /* Confetti will be added via JS */
+    body { margin:0; height:100vh; font-family:Segoe UI,sans-serif; background:linear-gradient(135deg,#ff9a9e,#fad0c4); display:flex; justify-content:center; align-items:center; color:#333; overflow:hidden; }
+    .container { text-align:center; background:rgba(255,255,255,0.92); padding:40px 60px; border-radius:20px; box-shadow:0 10px 40px rgba(0,0,0,0.2); max-width:90%; position:relative; z-index:10; }
+    h1 { font-size:3.2rem; color:#e74c3c; margin:0 0 30px; text-shadow:2px 2px 10px rgba(231,76,60,0.3); }
+    .hearts { font-size:2.5rem; margin-bottom:20px; }
+    .buttons { display:flex; justify-content:center; gap:60px; margin-top:40px; }
+    button { font-size:1.6rem; padding:18px 60px; border:none; border-radius:50px; cursor:pointer; transition:all 0.3s ease; box-shadow:0 8px 20px rgba(0,0,0,0.15); }
+    #yesBtn { background:#e74c3c; color:white; }
+    #yesBtn:hover { background:#c0392b; transform:scale(1.1); }
+    #noBtn { background:#95a5a6; color:white; position:relative; }
+    #noBtn:hover { background:#7f8c8d; }
+    .message { font-size:1.5rem; margin-top:40px; color:#27ae60; font-weight:bold; opacity:0; transition:opacity 1s; }
+    .hidden { display:none; }
+    .heart { position:absolute; font-size:1.5rem; color:#e74c3c; pointer-events:none; animation:float 8s linear infinite; opacity:0.7; }
+    @keyframes float { 0%{transform:translateY(100vh) rotate(0deg);} 100%{transform:translateY(-150px) rotate(720deg);} }
   </style>
 </head>
 <body>
-
   <div class="container">
     <div class="hearts">💕💖❤️</div>
     <h1>Hey cutie...</h1>
     <h1>Will you be my Valentine? 🥰</h1>
-
     <div class="buttons">
       <button id="yesBtn">Yes!! 💘</button>
       <button id="noBtn">No 😔</button>
     </div>
-
     <div id="message" class="message hidden">Yayyyy! I love you so much! 🎉❤️</div>
   </div>
 
-  <!-- Floating hearts -->
   <script>
+    // Floating hearts
     function createHeart() {
       const heart = document.createElement("div");
       heart.classList.add("heart");
       heart.innerHTML = ["❤️","💖","💕","💗","💞"][Math.floor(Math.random()*5)];
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = (Math.random() * 5 + 6) + "s";
-      heart.style.fontSize = (Math.random() * 1.5 + 1) + "rem";
+      heart.style.left = Math.random()*100 + "vw";
+      heart.style.animationDuration = (Math.random()*5 + 6) + "s";
+      heart.style.fontSize = (Math.random()*1.5 + 1) + "rem";
       document.body.appendChild(heart);
-
       setTimeout(() => heart.remove(), 10000);
     }
-
     setInterval(createHeart, 400);
 
-    // Button logic
+    // Buttons logic
     const yesBtn = document.getElementById("yesBtn");
     const noBtn = document.getElementById("noBtn");
     const message = document.getElementById("message");
@@ -149,50 +56,30 @@
       message.classList.remove("hidden");
       message.style.opacity = "1";
       noBtn.style.display = "none";
-      confetti();
-      confetti();
-      confetti();
-    });
-
-    noBtn.addEventListener("mouseover", (e) => {
-      const rect = noBtn.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      // Run away!
-      noBtn.style.transform = translate(${Math.random()*200 - 100}px, ${Math.random()*200 - 100}px);
-      setTimeout(() => {
-        noBtn.style.transform = "translate(0,0)";
-      }, 800);
-    });
-
-    // Simple confetti (you can replace with canvas-confetti library if hosted)
-function confetti() {
-      for(let i = 0; i < 80; i++) {
+      // Confetti animation (safe, no eval)
+      for (let i = 0; i < 80; i++) {
         const conf = document.createElement("div");
         conf.style.position = "absolute";
         conf.style.width = "10px";
         conf.style.height = "10px";
         conf.style.background = ["#ff0000","#ff69b4","#ffd700","#00ff00","#1e90ff"][Math.floor(Math.random()*5)];
         conf.style.borderRadius = "50%";
-        conf.style.left = Math.random() * 100 + "vw";
+        conf.style.left = Math.random()*100 + "vw";
         conf.style.top = "-20px";
         conf.style.pointerEvents = "none";
-        conf.style.opacity = Math.random() * 0.7 + 0.3;
         document.body.appendChild(conf);
-
-        const anim = conf.animate([
-          { transform: "translateY(0) rotate(0deg)", opacity: 1 },
+        conf.animate([
+          { transform: "translateY(0)", opacity: 1 },
           { transform: translateY(${window.innerHeight + 100}px) rotate(${Math.random()*720}deg), opacity: 0 }
-        ], {
-          duration: Math.random() * 3000 + 2000,
-          easing: "cubic-bezier(.37,0,.63,1)"
-        });
-
-        anim.onfinish = () => conf.remove();
+        ], { duration: Math.random()*3000 + 2000, easing: "cubic-bezier(.37,0,.63,1)" })
+        .onfinish = () => conf.remove();
       }
-    }
-  </script>
+    });
 
+    noBtn.addEventListener("mouseover", () => {
+      noBtn.style.transform = translate(${Math.random()*200 - 100}px, ${Math.random()*200 - 100}px);
+      setTimeout(() => { noBtn.style.transform = "translate(0,0)"; }, 800);
+    });
+  </script>
 </body>
 </html>
