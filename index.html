@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Hey Mrs ArthiArun 💕</title>
+  <title>Hey Beautiful 💕</title>
   <style>
     body {
       margin: 0;
@@ -61,8 +61,8 @@
       transform: scale(1.05);
     }
 
-    #apologyPage { display: block; }
-    #quizPage, #valentinePage { display: none; }
+    #apologyPage { display: block; opacity: 1; }
+    #quizPage, #valentinePage { display: none; opacity: 0; }
 
     .petal {
       position: absolute;
@@ -90,12 +90,12 @@
       We tried our best to embed "Die With A Smile" by Bruno Mars & Lady Gaga... but technology said no 😭<br>
       So play the song yourself on YouTube before moving further — let's set the mood together 💕
     </p>
-    <button onclick="goToQuiz()">Let's go 💕</button>
+    <button id="goButton">Let's go 💕</button>
   </div>
 
   <!-- Quiz Page -->
   <div id="quizPage" class="page">
-    <h1 id="welcomeName">Hey beautiful 💕</h1>
+    <h1 id="welcomeName">Hey Mrs ArthiArun 💕</h1>
     <p>Before I ask you something very special… answer this correctly 😘</p>
 
     <p><strong>What’s the first movie we watched together?</strong></p>
@@ -124,8 +124,8 @@
   </div>
 
   <script>
-    // Fade to quiz after apology
-    function goToQuiz() {
+    // Apology → quiz
+    document.getElementById("goButton").addEventListener("click", function goToQuiz() {
       const apology = document.getElementById("apologyPage");
       apology.style.opacity = "0";
       setTimeout(() => {
@@ -134,14 +134,13 @@
         quiz.style.display = "block";
         quiz.style.opacity = "1";
       }, 1200);
-    }
+    });
 
     // Her name
     let herName = localStorage.getItem("herName");
     if (!herName) {
-      herName = prompt("What's your beautiful name, love? 💕") || "beautiful";
-
-localStorage.setItem("herName", herName);
+herName = prompt("What's your beautiful name, love? 💕") || "beautiful";
+      localStorage.setItem("herName", herName);
     }
     document.getElementById("welcomeName").innerHTML = Hey ${herName} 💕;
 
@@ -168,14 +167,14 @@ localStorage.setItem("herName", herName);
     }
 
     // Yes
-    document.getElementById("yesBtn").onclick = function() {
+    document.getElementById("yesBtn").addEventListener("click", function() {
       document.getElementById("message").style.display = "block";
       document.getElementById("noBtn").style.display = "none";
       document.getElementById("noMessage").style.display = "none";
-    };
+    });
 
     // No
-    document.getElementById("noBtn").onclick = function() {
+    document.getElementById("noBtn").addEventListener("click", function() {
       const noMsg = document.getElementById("noMessage");
       noMsg.style.display = "block";
 
@@ -184,7 +183,7 @@ localStorage.setItem("herName", herName);
         this.style.transform = "translateY(0) scale(1)";
         setTimeout(() => noMsg.style.display = "none", 5000);
       }, 1500);
-    };
+    });
 
     // Falling petals
     function createPetal() {
